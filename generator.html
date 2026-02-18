@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACAKAN KARTU KAWAN</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 16px;
+        }
+        .card {
+            background: #1e2b3a;
+            border-radius: 28px;
+            box-shadow: 0 25px 40px -10px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 700px;
+            padding: 30px 28px;
+            border: 1px solid #3a4c5e;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 0 20px 0;
+            color: #f0b90b;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            word-break: break-word;
+        }
+        h1 small {
+            font-size: 0.9rem;
+            color: #9ab3c8;
+            display: block;
+            font-weight: 400;
+            letter-spacing: normal;
+            margin-top: 5px;
+        }
+        .input-group {
+            margin-bottom: 24px;
+        }
+        .input-group label {
+            display: block;
+            color: #cbd5e0;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .input-group textarea,
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            background: #0f1a24;
+            border: 1px solid #2a3f4f;
+            color: #e9f1f7;
+            padding: 14px 16px;
+            border-radius: 18px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .input-group textarea:focus,
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #f0b90b;
+            box-shadow: 0 0 0 2px rgba(240,185,11,0.2);
+        }
+        .input-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: monospace;
+        }
+        .row-duo {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .row-duo > div {
+            flex: 1 1 0;
+            min-width: 130px;
+        }
+        .cvv-quantity {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .cvv-quantity > div {
+            flex: 1 1 0;
+            min-width: 100px;
+        }
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0 15px;
+            padding: 10px 15px;
+            background: #0f1a24;
+            border-radius: 40px;
+            border: 1px solid #2a3f4f;
+        }
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #f0b90b;
+        }
+        .checkbox-option label {
+            color: #e9f1f7;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+        button {
+            background: #f0b90b;
+            border: none;
+            color: #0f1a24;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 18px 24px;
+            border-radius: 40px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+            border-bottom: 4px solid #c99400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            background: #ffd000;
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+        button.copy-btn {
+            background: #2f4b5c;
+            border-bottom-color: #1a2f3a;
+            color: white;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        button.copy-btn:hover {
+            background: #3e5f73;
+        }
+        .result-area {
+            background: #0f1a24;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid #2a3f4f;
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #9ab3c8;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        #cardsOutput {
+            background: #0b141c;
+            border-radius: 16px;
+            padding: 16px;
+            color: #b7e0ff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #1f3540;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            color: #617b8b;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            border-top: 1px dashed #2a3f4f;
+            padding-top: 18px;
+        }
+        .footer a {
+            color: #f0b90b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .note {
+            color: #9ab3c8;
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f0b90b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>ACAKAN KARTU KAWAN</h1>
+
+        <div class="input-group">
+            <label>🔢 BINS (pisahkan dengan titik koma ;)</label>
+            <textarea id="binsInput" placeholder="Contoh: 512345; 543210; 450000">512345; 543210</textarea>
+            <div class="note">* Hanya angka, boleh ada spasi</div>
+        </div>
+
+        <div class="row-duo">
+            <div class="input-group">
+                <label>📅 BULAN</label>
+                <select id="monthSelect">
+                    <option value="random">Random</option>
+                    <option value="01">01 - January</option>
+                    <option value="02">02 - February</option>
+                    <option value="03">03 - March</option>
+                    <option value="04">04 - April</option>
+                    <option value="05">05 - May</option>
+                    <option value="06">06 - June</option>
+                    <option value="07">07 - July</option>
+                    <option value="08">08 - August</option>
+                    <option value="09">09 - September</option>
+                    <option value="10">10 - October</option>
+                    <option value="11">11 - November</option>
+                    <option value="12">12 - December</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>📅 TAHUN</label>
+                <select id="yearSelect">
+                    <option value="random">Random</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                    <option value="2031">2031</option>
+                    <option value="2032">2032</option>
+                    <option value="2033">2033</option>
+                    <option value="2034">2034</option>
+                    <option value="2035">2035</option>
+                    <option value="2036">2036</option>
+                    <option value="2037">2037</option>
+                    <option value="2038">2038</option>
+                    <option value="2039">2039</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="cvv-quantity">
+            <div class="input-group">
+                <label>🔒 CVV</label>
+                <input type="text" id="cvvInput" value="123" placeholder="3 atau 4 digit">
+            </div>
+            <div class="input-group">
+                <label>🔢 JUMLAH</label>
+                <input type="number" id="quantityInput" min="1" max="100" value="5">
+            </div>
+        </div>
+
+        <!-- Checkbox baru: Kosongkan tanggal & CVV -->
+        <div class="checkbox-option">
+            <input type="checkbox" id="skipExpiryCvv">
+            <label for="skipExpiryCvv">☑ Kosongkan hasil tanggal & CVV (hanya nomor kartu)</label>
+        </div>
+
+        <button id="generateBtn">✨ Generate</button>
+        <button class="copy-btn" id="copyBtn">📋 Copy Cards</button>
+
+        <div class="result-area">
+            <div class="result-header">
+                <span>💳 Hasil Generate</span>
+                <span id="cardCount">0 kartu</span>
+            </div>
+            <div id="cardsOutput">Klik Generate untuk memulai...</div>
+        </div>
+
+        <div class="footer">
+            Modified By <a href="#" target="_blank">@vipscraper</a> (sesuai asli)
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Elemen DOM
+            const binsTextarea = document.getElementById('binsInput');
+            const monthSelect = document.getElementById('monthSelect');
+            const yearSelect = document.getElementById('yearSelect');
+            const cvvInput = document.getElementById('cvvInput');
+            const quantityInput = document.getElementById('quantityInput');
+            const skipExpiryCvv = document.getElementById('skipExpiryCvv'); // checkbox baru
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const cardsOutput = document.getElementById('cardsOutput');
+            const cardCountSpan = document.getElementById('cardCount');
+
+            // Fungsi bantu
+            function parseBins(raw) {
+                const parts = raw.split(';').map(p => p.trim().replace(/\D/g, ''));
+                return parts.filter(p => p.length >= 4);
+            }
+
+            function generateCardNumber(bin) {
+                const totalLength = 16;
+                const binStr = bin.toString();
+                const remainingLength = totalLength - binStr.length;
+                if (remainingLength <= 0) return binStr.substring(0, 16);
+                let randomPart = '';
+                for (let i = 0; i < remainingLength; i++) {
+                    randomPart += Math.floor(Math.random() * 10);
+                }
+                return binStr + randomPart;
+            }
+
+            function luhnCheck(number) {
+                let sum = 0;
+                let alternate = false;
+                for (let i = number.length - 1; i >= 0; i--) {
+                    let digit = parseInt(number.charAt(i), 10);
+                    if (alternate) {
+                        digit *= 2;
+                        if (digit > 9) digit -= 9;
+                    }
+                    sum += digit;
+                    alternate = !alternate;
+                }
+                return sum % 10 === 0;
+            }
+
+            function makeLuhnValid(bin) {
+                let base = generateCardNumber(bin).substring(0, 15);
+                for (let check = 0; check <= 9; check++) {
+                    let candidate = base + check;
+                    if (luhnCheck(candidate)) {
+                        return candidate;
+                    }
+                }
+                return base + '0';
+            }
+
+            function getRandomMonth() {
+                return ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
+            }
+
+            function getRandomYear() {
+                const years = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039];
+                return years[Math.floor(Math.random() * years.length)];
+            }
+
+            function generateCards() {
+                const rawBins = binsTextarea.value.trim();
+                if (!rawBins) {
+                    cardsOutput.innerText = '⚠️ Masukkan setidaknya satu BIN.';
+                    cardCountSpan.innerText = '0 kartu';
+                    return;
+                }
+
+                const binList = parseBins(rawBins);
+                if (binList.length === 0) {
+                    cardsOutput.innerText = '⚠️ BIN tidak valid. Minimal 4 digit angka.';
+                    cardCountSpan.innerText = '0 kartu';
+                    return;
+                }
+
+                // Ambil nilai bulan/tahun/cvv tetap diperlukan meskipun checkbox dicentang? 
+                // Untuk keperluan validasi, kita tetap ambil tapi tidak dipakai jika skip.
+                const monthRaw = monthSelect.value;
+                const yearRaw = yearSelect.value;
+                const cvvRaw = cvvInput.value.trim().replace(/\D/g, '');
+                let cvv = cvvRaw.length >= 3 ? cvvRaw.substring(0, 4) : '123';
+                if (cvv.length < 3) cvv = '123';
+
+                let quantity = parseInt(quantityInput.value, 10);
+                if (isNaN(quantity) || quantity < 1) quantity = 1;
+                if (quantity > 100) quantity = 100;
+
+                const skipAll = skipExpiryCvv.checked; // status checkbox
+
+                const cards = [];
+                for (let i = 0; i < quantity; i++) {
+                    const randomBin = binList[Math.floor(Math.random() * binList.length)];
+                    const cardNumber = makeLuhnValid(randomBin);
+
+                    if (skipAll) {
+                        // Jika dicentang: output hanya nomor kartu
+                        cards.push(cardNumber);
+                    } else {
+                        // Jika tidak: gunakan bulan, tahun, cvv seperti biasa
+                        let month = monthRaw;
+                        if (monthRaw === 'random') {
+                            month = getRandomMonth();
+                        }
+
+                        let year = yearRaw;
+                        if (yearRaw === 'random') {
+                            year = getRandomYear();
+                        }
+
+                        cards.push(`${cardNumber}|${month}|${year}|${cvv}`);
+                    }
+                }
+
+                cardsOutput.innerText = cards.join('\n');
+                cardCountSpan.innerText = `${cards.length} kartu`;
+            }
+
+            function copyCards() {
+                const text = cardsOutput.innerText;
+                if (!text || text === 'Klik Generate untuk memulai...' || text.includes('⚠️')) {
+                    alert('Tidak ada kartu untuk disalin. Generate dulu!');
+                    return;
+                }
+
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('✅ Kartu berhasil disalin ke clipboard!');
+                }).catch(() => {
+                    alert('Gagal menyalin, coba manual.');
+                });
+            }
+
+            generateBtn.addEventListener('click', generateCards);
+            copyBtn.addEventListener('click', copyCards);
+
+            window.addEventListener('load', () => {
+                generateCards();
+            });
+        })();
+    </script>
+</body>
+</html>
